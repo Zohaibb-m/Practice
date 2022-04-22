@@ -25,10 +25,10 @@ const userCtrl={
         try {
             const {email,password}=req.body
             const user=await Users.findOne({email:email})
-            if(!user)return res.status(400).json("The User does not exists")
-
+            if(!user)return res.status(400).json({msg:"The User does not exists"})
+            
             const isMatch=await bcrypt.compare(password,user.password)
-            if(!isMatch)return res.status(400).json("Password Incorrect")
+            if(!isMatch)return res.status(400).json({msg:"Password Incorrect"})
 
             //Login Successful
             const payload={id:user._id,username:user.username}
